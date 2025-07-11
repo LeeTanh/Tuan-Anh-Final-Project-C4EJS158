@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mua Bán Xe Hơi</title>
+  <link rel="stylesheet" href="Stylefinalproject.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="./index.js"></script>
+</head>
+
+<body>
+  <header>
+    <div class="container_header">
+
+      <div class="left_header">
+        <img src="./pictures/default-monochrome-white 1.svg" alt="Brand logo"
+          style="width: 40%; height: auto; object-fit: contain;" />
+      </div>
+
+      <div class="middle_header">
+        <ul>
+          <li class="home_button">Home</li>
+          <li class="icon_item"><img src="./pictures/car (1) 1.svg" alt="Car Icon" /><span>Cars</span></li>
+          <li class="icon_item"><img src="./pictures/wrench 1.svg" alt="Wrench Icon" /><span>Accessories</span></li>
+          <li class="icon_item"><img src="./pictures/technical-support 1.svg" alt="Tech Sup" /><span>Services</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="right_header">
+        <div class="login_button">
+          <img src="./pictures/account 1.svg" />
+        </div>
+        <div class="search_button">
+          Search
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="modal-overlay" id="modalOverlay"> <!-- phủ mờ màn hình-->
+    <div class="login-container"> <!-- hộp login nằm trong class phủ mờ-->
+      <button class="close-button" id="closeButton">&times;</button>
+
+      <!-- Form Tabs -->
+      <div class="form-tabs">
+        <button class="tab-button active" id="loginTab">Login</button>
+        <button class="tab-button" id="signupTab">Sign Up</button>
+      </div>
+
+      <!-- Login Form -->
+      <div class="form-container">
+        <form class="form" id="loginForm">
+          <h2>Welcome Back</h2>
+          <div class="input-group">
+            <label>Email:</label>
+            <input type="email" id="loginEmail" required>
+          </div>
+          <div class="input-group">
+            <label>Password:</label>
+            <input type="password" id="loginPassword" required>
+          </div>
+          <button type="submit" class="submit-button">Sign In</button>
+          <div class="error-message" id="loginError"></div>
+          <div class="success-message" id="loginSuccess"></div>
+        </form>
+
+        <!-- Sign Up Form -->
+        <form class="form hidden signup_form" id="signupForm">
+          <h2>Create Account</h2>
+          <div class="input-group">
+            <label>Full Name:</label>
+            <input type="text" id="signupName" required>
+          </div>
+          <div class="input-group">
+            <label>Email:</label>
+            <input type="email" id="signupEmail" required>
+          </div>
+          <div class="input-group">
+            <label>Password:</label>
+            <input type="password" id="signupPassword" required>
+            <div class="password-requirements">
+              Password must contain at least 8 characters, one uppercase letter, one special character
+              (!@#$%^&*(),.?:{}|<>)
+            </div>
+          </div>
+          <div class="input-group">
+            <label>Confirm Password:</label>
+            <input type="password" id="confirmPassword" required>
+          </div>
+          <button type="submit" class="submit-button">Create Account</button>
+          <div class="error-message" id="signupError"></div>
+          <div class="success-message" id="signupSuccess"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="container_main">
+    <div class="upper_main">
+      <div class="left_main">
+        <div>The No.1 platform in <span class="highlight">Vietnam</span> for buying and selling cars</div>
+      </div>
+
+      <div class="right_main">
+        <img src="pictures/zeekrtown-removebg (1) 1.svg" alt="new model" />
+      </div>
+    </div>
+
+    <div class="lower_main">
+      <div class="selection_bar">
+        <div class="dropdown_group">
+          <div class="dropdown" data-type="brand">
+            <div class="dropdown-content">
+              <label>Brand</label>
+              <span class="selected-value">Select Brand</span>
+            </div>
+            <div class="select">▼</div>
+            <div class="dropdown-menu"></div>
+          </div>
+
+          <div class="dropdown" data-type="model">
+            <div class="dropdown-content">
+              <label>Model</label>
+              <span class="selected-value">Select Model</span>
+            </div>
+            <div class="select">▼</div>
+            <div class="dropdown-menu"></div>
+          </div>
+
+          <div class="dropdown" data-type="year">
+            <div class="dropdown-content">
+              <label>Year</label>
+              <span class="selected-value">Select Year</span>
+            </div>
+            <div class="select">▼</div>
+            <div class="dropdown-menu"></div>
+          </div>
+
+          <div class="dropdown" data-type="price">
+            <div class="dropdown-content">
+              <label>Price</label>
+              <span class="selected-value">Select Price</span>
+            </div>
+            <div class="select">▼</div>
+            <div class="dropdown-menu"></div>
+          </div>
+        </div>
+
+        <button class="search_button2" onclick="performSearch()">
+          <img src="pictures/find 1.svg" style="width: 30px; height: auto;">
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container_main2">
+
+    <div class="container_header2">
+      <div class="passenger_button">Passenger Cars</div>
+      <div class="view_button">View All<span>❯</span></div>
+    </div>
+
+    <div class="car_sections" id="carSections"></div>
+
+  </div>
+
+  <div class="container_main3">
+
+    <div class="container_header3">
+      <div class="comercial_button">Commercial Vehicles</div>
+      <div class="view_button3">View All<span>❯</span></div>
+    </div>
+
+    <div class="truck_sections">
+
+      <div class="truck_card">
+        <div class="truck_info">
+          <div class="truck_info_logo"><img src="pictures/Renault-logo-2015-640x550 1.svg" alt="Renault logo" /></div>
+          <div class="truck_info_name">Renault <br> Premium</div>
+          <div class="truck_info_price">$ 36 000</div>
+        </div>
+        <div class="truck_img_wrapper">
+          <div class="truck_img"><img src="pictures/Renault truck.svg" alt="Renault truck" /></div>
+        </div>
+      </div>
+
+      <div class="truck_card">
+        <div class="truck_info">
+          <div class="truck_info_logo"><img src="pictures/Volvo Logo.svg" alt="Volvo logo" /></div>
+          <div class="truck_info_name">Volvo FH</div>
+          <div class="truck_info_price">$ 25 000</div>
+        </div>
+        <div class="truck_img_wrapper_Volvo">
+          <div class="truck_img_Volvo"><img src="pictures/Volvo truck.svg" alt="Volvo truck" /></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container_main4">
+    <div class="upper_sections4">
+
+      <div class="img_sections4">
+
+        <div class="img_sections4_left">
+
+          <div class="text_wrapper4">
+            <div style="font-size: 32px; font-weight: bold;">Our Services</div>
+            <div>Here you can find a wide range of services for any budget. Find any service without intermediaries and
+              overpayments.</div>
+          </div>
+
+          <div class="img_wrapper4">
+            <img src="pictures/Car services.svg" alt="car services" />
+            <div class="car_service_btn">Car Service</div>
+          </div>
+        </div>
+
+        <div class="img_sections4_mid">
+          <img src="pictures/Car key.svg" alt="car key" />
+          <div class="car_key_btn">Car Keys</div>
+        </div>
+
+        <div class="img_sections4_right">
+          <img src="pictures/Tow truck.svg" alt="tow truck" ; />
+          <img src="pictures/Car wash.svg" alt="car wash" ; />
+          <div class="tow_truck_btn">Tow Truck</div>
+          <div class="car_wahes_btn"> Car Washes</div>
+        </div>
+      </div>
+
+      <div class="text_sections4">
+        <div class="view_button4">View All<span>❯</span></div>
+      </div>
+    </div>
+    <div class="lower_sections4">
+      <div class="lower_sections4_header">Why Us?</div>
+      <div class="lower_sections4_option">
+
+        <div class="option_card">
+          <img src="pictures/Shield.svg" alt="Shield" />
+          <p style="font-weight: bold; font-size: 32px;">Reliability</p>
+          <p style="font-size: 28px; text-align: center;">Payment guarantee, all transactions are verified</p>
+        </div>
+
+        <div class="option_card">
+          <img src="pictures/Hand shake.svg" alt="Hand Shake" />
+          <p style="font-weight: bold; font-size: 32px;">Without Intermediaries</p>
+          <p style="font-size: 28px; text-align: center;">Make all transactions directly with the seller</p>
+        </div>
+
+        <div class="option_card">
+          <img src="pictures/contract (1) 1.svg" alt="Contract" />
+          <p style="font-weight: bold; font-size: 32px;">Agreement</p>
+          <p style="font-size: 28px; text-align: center;">All transactions are concluded legally with a contract</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container_main5">
+    <div class="upper_section5">
+      <div class="card_info5">
+        <div><img src="./pictures/default-monochrome-white 1.svg" alt="Brand logo" style="transform: scale(1.2);">
+        </div>
+        <div class="icon_wrapper">
+          <img src="pictures/Telegram.svg" />
+          <img src="pictures/Whatsaap.svg" />
+          <img src="pictures/Insta.svg" />
+        </div>
+      </div>
+
+      <div class="card_info5">
+        <ul>
+          <li>About the project</li>
+          <li>FAQs</li>
+          <li>Feedback</li>
+        </ul>
+      </div>
+
+      <div class="card_info5">
+        <ul>
+          <li>For partners</li>
+          <li>User Agreement</li>
+          <li>Advertising</li>
+        </ul>
+      </div>
+
+      <div class="card_info5">
+        <ul>
+          <li>Calculator</li>
+          <li>Price statistics</li>
+          <li>Car checking by VIN</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="lower_sections5">
+      <div class="footer_bottom">
+        <hr class="footer_line" />
+        <div class="copyright_text">
+          ALL RIGHTS RESERVED. COPYRIGHT 2025
+        </div>
+      </div>
+    </div>
+
+    <button id="backToTopBtn" title="Back to top">↑</button>
+
+  </div>
+
+  <script>
+
+    const backToTopBtn = document.getElementById("backToTopBtn");
+
+    window.onscroll = function () {
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        backToTopBtn.style.display = "block";
+      } else {
+        backToTopBtn.style.display = "none";
+      }
+    };
+
+    backToTopBtn.onclick = function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    // Dữ liệu dropdowns
+    const dropdownData = {
+      brand: [
+        { value: 'toyota', text: 'Toyota' },
+        { value: 'honda', text: 'Honda' },
+        { value: 'ford', text: 'Ford' },
+        { value: 'bmw', text: 'BMW' },
+        { value: 'mercedes', text: 'Mercedes-Benz' },
+        { value: 'audi', text: 'Audi' },
+        { value: 'volkswagen', text: 'Volkswagen' },
+        { value: 'nissan', text: 'Nissan' },
+        { value: 'hyundai', text: 'Hyundai' },
+        { value: 'kia', text: 'Kia' }
+      ],
+      model: [
+        { value: 'sedan', text: 'Sedan' },
+        { value: 'suv', text: 'SUV' },
+        { value: 'hatchback', text: 'Hatchback' },
+        { value: 'coupe', text: 'Coupe' },
+        { value: 'convertible', text: 'Convertible' },
+        { value: 'wagon', text: 'Wagon' },
+        { value: 'pickup', text: 'Pickup Truck' }
+      ],
+      year: [
+        { value: '2024', text: '2024' },
+        { value: '2023', text: '2023' },
+        { value: '2022', text: '2022' },
+        { value: '2021', text: '2021' },
+        { value: '2020', text: '2020' },
+        { value: '2019', text: '2019' },
+        { value: '2018', text: '2018' },
+        { value: '2017', text: '2017' },
+        { value: '2016', text: '2016' },
+        { value: '2015', text: '2015' }
+      ],
+      price: [
+        { value: '0-10000', text: 'Under $10,000' },
+        { value: '10000-20000', text: '$10,000 - $20,000' },
+        { value: '20000-30000', text: '$20,000 - $30,000' },
+        { value: '30000-40000', text: '$30,000 - $40,000' },
+        { value: '40000-50000', text: '$40,000 - $50,000' },
+        { value: '50000+', text: '$50,000+' }
+      ]
+    };
+
+    // Store values
+    let selectedValues = {
+      brand: '',
+      model: '',
+      year: '',
+      price: ''
+    };
+
+    // Initialize dropdowns 
+    document.addEventListener('DOMContentLoaded', function () {
+      initializeDropdowns();
+    });
+
+    function initializeDropdowns() {
+      const dropdowns = document.querySelectorAll('.dropdown');
+
+      // Create dropdown items
+      dropdowns.forEach(dropdown => {
+        const type = dropdown.getAttribute('data-type');
+        const menu = dropdown.querySelector('.dropdown-menu');
+
+        // Clear and populate menu
+        menu.innerHTML = '';
+        dropdownData[type].forEach(item => {
+          const option = document.createElement('div');
+          option.className = 'dropdown-item';
+          option.setAttribute('data-value', item.value);
+          option.textContent = item.text;
+          menu.appendChild(option);
+        });
+      });
+
+      // Event listeners
+      addEventListeners();
+    }
+
+    function addEventListeners() {
+      // Dropdown click events
+      document.querySelectorAll('.dropdown').forEach(dropdown => {
+        dropdown.addEventListener('click', function (e) {
+          e.stopPropagation();
+
+          // Close other dropdowns
+          document.querySelectorAll('.dropdown').forEach(d => {
+            if (d !== this) {
+              d.classList.remove('active');
+              d.querySelector('.dropdown-menu').classList.remove('show');
+            }
+          });
+
+          // Switch dropdown
+          this.classList.toggle('active');
+          const menu = this.querySelector('.dropdown-menu');
+          menu.classList.toggle('show');
+        });
+      });
+
+      // Dropdown item click events
+      document.querySelectorAll('.dropdown-item').forEach(item => {
+        item.addEventListener('click', function (e) {
+          e.stopPropagation();
+
+          const dropdown = this.closest('.dropdown');
+          const type = dropdown.getAttribute('data-type');
+          const value = this.getAttribute('data-value');
+          const text = this.textContent;
+
+          // Update selected value
+          selectedValues[type] = value;
+
+          // Update display
+          const valueSpan = dropdown.querySelector('.selected-value');
+          valueSpan.textContent = text;
+          valueSpan.style.color = '#333';
+
+          // Close dropdown
+          dropdown.classList.remove('active');
+          dropdown.querySelector('.dropdown-menu').classList.remove('show');
+        });
+      });
+
+      // Close dropdowns when clicking outside
+      document.addEventListener('click', function () {
+        document.querySelectorAll('.dropdown').forEach(dropdown => {
+          dropdown.classList.remove('active');
+          dropdown.querySelector('.dropdown-menu').classList.remove('show');
+        });
+      });
+    }
+
+    // Search function
+    function performSearch() {
+      const searchCriteria = {};
+
+      // Collect selected values
+      Object.keys(selectedValues).forEach(key => {
+        if (selectedValues[key]) {
+          searchCriteria[key] = selectedValues[key];
+        }
+      });
+
+      if (Object.keys(searchCriteria).length === 0) {
+        alert('Please select at least one search criteria.');
+        return;
+      }
+
+      // Create search summary
+      let searchSummary = 'Searching for cars with: ';
+      const criteria = [];
+
+      Object.keys(searchCriteria).forEach(key => {
+        const selectedItem = dropdownData[key].find(item => item.value === searchCriteria[key]);
+        if (selectedItem) {
+          criteria.push(`${key.charAt(0).toUpperCase() + key.slice(1)}: ${selectedItem.text}`);
+        }
+      });
+
+      searchSummary += criteria.join(', ');
+      alert(searchSummary);
+
+      console.log('Search criteria:', searchCriteria);
+    }
+
+
+
+    //login function
+    // Get DOM elements
+    const loginButton = document.querySelector('.login_button');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const closeButton = document.getElementById('closeButton');
+    const loginTab = document.getElementById('loginTab');
+    const signupTab = document.getElementById('signupTab');
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+
+    // Modal control
+    function openModal() {
+      modalOverlay.classList.add('active');
+      document.querySelector('.main-content').classList.add('blur-background');
+    }
+
+    function closeModal() {
+      modalOverlay.classList.remove('active');
+      document.querySelector('.main-content').classList.remove('blur-background');
+      clearMessages();
+    }
+
+    // Tab switching
+    function switchTab(activeTab, activeForm, inactiveTab, inactiveForm) {
+      activeTab.classList.add('active');
+      inactiveTab.classList.remove('active');
+      activeForm.classList.remove('hidden');
+      inactiveForm.classList.add('hidden');
+      clearMessages();
+    }
+
+    // Clear all messages
+    function clearMessages() {
+      document.querySelectorAll('.error-message, .success-message').forEach(msg => {
+        msg.style.display = 'none';
+        msg.textContent = '';
+      });
+    }
+
+    // Show message
+    function showMessage(elementId, message, isError = true) {
+      const element = document.getElementById(elementId);
+      element.textContent = message;
+      element.style.display = 'block';
+
+      setTimeout(() => {
+        element.style.display = 'none';
+      }, 5000);
+    }
+
+    // Password validation
+    function validatePassword(password) {
+      const minLength = password.length >= 8;
+      const hasUppercase = /[A-Z]/.test(password);
+      const hasSpecialChar = /[!@#$%^&*(),.?:{}|<>]/.test(password);
+
+      return {
+        isValid: minLength && hasUppercase && hasSpecialChar,
+        errors: []
+          .concat(minLength ? [] : ['at least 8 characters'])
+          .concat(hasUppercase ? [] : ['one uppercase letter'])
+          .concat(hasSpecialChar ? [] : ['one special character'])
+      };
+    }
+
+    // Event listeners
+    loginButton.addEventListener('click', openModal);
+    closeButton.addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) closeModal();
+    });
+
+    loginTab.addEventListener('click', () => {
+      switchTab(loginTab, loginForm, signupTab, signupForm);
+    });
+
+    signupTab.addEventListener('click', () => {
+      switchTab(signupTab, signupForm, loginTab, loginForm);
+    });
+
+    // Login form submission
+    loginForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+
+      // Basic validation
+      if (!email || !password) {
+        showMessage('loginError', 'Please fill in all fields');
+        return;
+      }
+
+      const passwordCheck = validatePassword(password);
+      if (!passwordCheck.isValid) {
+        showMessage('loginError', `Password must contain ${passwordCheck.errors.join(', ')}`);
+        return;
+      }
+
+      // Simulate login success
+      showMessage('loginSuccess', 'Login successful! Welcome back!', false);
+
+      // Close modal after 2 seconds
+      setTimeout(() => {
+        closeModal();
+        alert('Login Successful! Welcome back!');
+      }, 2000);
+    });
+
+    // Signup form submission
+    signupForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('signupName').value;
+      const email = document.getElementById('signupEmail').value;
+      const password = document.getElementById('signupPassword').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      // Basic validation
+      if (!name || !email || !password || !confirmPassword) {
+        showMessage('signupError', 'Please fill in all fields');
+        return;
+      }
+
+      // Password validation
+      const passwordCheck = validatePassword(password);
+      if (!passwordCheck.isValid) {
+        showMessage('signupError', `Password must contain ${passwordCheck.errors.join(', ')}`);
+        return;
+      }
+
+      // Confirm password match
+      if (password !== confirmPassword) {
+        showMessage('signupError', 'Passwords do not match');
+        return;
+      }
+
+      // Simulate signup success
+      showMessage('signupSuccess', 'Account created successfully! You can now log in.', false);
+
+      // Switch to login tab after 2 seconds
+      setTimeout(() => {
+        switchTab(loginTab, loginForm, signupTab, signupForm);
+        // Pre-fill email in login form
+        document.getElementById('loginEmail').value = email;
+      }, 2000);
+    });
+
+
+    // adđ car_card
+    const carsData = [
+      {
+        id: "001",
+        name: "Lexus ES 2022",
+        price: "$38,000",
+        image: "pictures/Lexus ES2022.svg",
+        logo: "pictures/Lexus logo.svg"
+      },
+      {
+        id: "002",
+        name: "Hyundai Sonata 2022",
+        price: "$26,000",
+        image: "pictures/Huyndai sonata.svg",
+        logo: "pictures/Huyndai logo.svg"
+      },
+      {
+        id: "003",
+        name: "Toyota RAV 4 2020",
+        price: "$27,500",
+        image: "pictures/Rav 4.svg",
+        logo: "pictures/Toyota logo.svg"
+      },
+      {
+        id: "004",
+        name: "Toyota Camry 2018",
+        price: "$27,500",
+        image: "pictures/Rav 4.svg",
+        logo: "pictures/Toyota logo.svg"
+      },
+      {
+        id: "005",
+        name: "Lexus RX 2022",
+        price: "$38,000",
+        image: "pictures/RAV car.svg",
+        logo: "pictures/Lexus logo.svg"
+      },
+      {
+        id: "006",
+        name: "Hyundai Sonata 2022",
+        price: "$26,000",
+        image: "pictures/Huyndai sonata.svg",
+        logo: "pictures/Huyndai logo.svg"
+      },
+      {
+        id: "007",
+        name: "Range Rover 2022",
+        price: "$31,500",
+        image: "pictures/RR 2022.svg",
+        logo: "pictures/RR logo.svg"
+      },
+      {
+        id: "008",
+        name: "Toyota Camry 2018",
+        price: "$27,500",
+        image: "pictures/Rav 4.svg",
+        logo: "pictures/Toyota logo.svg"
+      }
+
+    ];
+
+const container = document.getElementById("carSections");
+
+const maxCards = Math.min(carsData.length, 8);
+
+for (let i = 0; i < maxCards; i++) {
+  const car = carsData[i];
+
+  const card = document.createElement("div");
+  card.className = "car_card";
+
+  card.innerHTML = `
+    <div class="car_img_wrapper">
+      <div class="car_img">
+        <img src="${car.image}" alt="${car.name}" />
+      </div>
+    </div>
+    <div class="car_info_wrapper">
+      <div class="car_logo">
+        <img src="${car.logo}" alt="Logo" />
+      </div>
+      <div class="car_price">${car.name}<br>${car.price}</div>
+    </div>
+  `;
+  card.addEventListener("click", () => {
+  window.location.href = `${car.id}.html`;
+  });
+
+  document.getElementById("carSections").appendChild(card);
+};
+  </script>
+
+</body>
